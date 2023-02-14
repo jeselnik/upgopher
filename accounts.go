@@ -4,40 +4,40 @@ const accountsBase = baseURL + "/accounts"
 
 type AccountsList struct {
 	Data []struct {
-		Type string
-		ID   string
+		Type string `json:"type"`
+		ID   string `json:"id"`
 
 		Attributes struct {
-			DisplayName   string
-			AccountType   string
-			OwnershipType string
+			DisplayName   string `json:"displayName"`
+			AccountType   string `json:"accountType"`
+			OwnershipType string `json:"ownershipType"`
 
 			Balance struct {
-				CurrencyCode     string
-				Value            string
-				ValueInBaseUnits string
-			}
+				CurrencyCode     string `json:"currencyCode"`
+				Value            string `json:"value"`
+				ValueInBaseUnits string `json:"valueInBaseUnits"`
+			} `json:"balance"`
 
-			CreatedAt string
-		}
+			CreatedAt string `json:"createdAt"`
+		} `json:"attributes"`
 
 		Relationships struct {
 			Transactions struct {
 				Links struct {
-					Related string
-				}
-			}
+					Related string `json:"related"`
+				} `json:"links"`
+			} `json:"transactions"`
 
 			Links struct {
 				Self string
 			}
-		}
-	}
+		} `json:"relationships"`
+	} `json:"data"`
 
 	Links struct {
-		Prev string
-		Next string
-	}
+		Prev string `json:"prev"`
+		Next string `json:"next`
+	} `json:"links"`
 }
 
 func GetAccounts(b Bearer) AccountsList {
