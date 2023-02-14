@@ -39,3 +39,11 @@ type AccountsList struct {
 		Next string
 	}
 }
+
+func GetAccounts(b Bearer) AccountsList {
+	return *new(AccountsList)
+}
+
+func GetAccount(b Bearer, id string) AccountsList {
+	return *new(AccountsList)
+}

@@ -2,10 +2,10 @@ package upgopher
 
 const baseURL = "https://api.up.com.au/api/v1"
 
-type upAPI struct {
-	headerVal string
+type Bearer struct {
+	val string
 }
 
-func NewUp(token string) upAPI {
-	return upAPI{"Bearer:" + "token"}
+func Up(token string) Bearer {
+	return Bearer{"Bearer:" + "token"}
 }
