@@ -29,6 +29,7 @@ func newRequest(url string, b Bearer) ([]byte, error) {
 	if resErr != nil {
 		return nil, resErr
 	}
+	defer res.Body.Close()
 	body, readErr := io.ReadAll(res.Body)
 	if readErr != nil {
 		return nil, readErr
