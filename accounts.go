@@ -1,5 +1,7 @@
 package upgopher
 
+import "encoding/json"
+
 const accountsBase = baseURL + "/accounts"
 
 type AccountsList struct {
@@ -15,7 +17,7 @@ type AccountsList struct {
 			Balance struct {
 				CurrencyCode     string `json:"currencyCode"`
 				Value            string `json:"value"`
-				ValueInBaseUnits string `json:"valueInBaseUnits"`
+				ValueInBaseUnits int    `json:"valueInBaseUnits"`
 			} `json:"balance"`
 
 			CreatedAt string `json:"createdAt"`
@@ -40,8 +42,16 @@ type AccountsList struct {
 	} `json:"links"`
 }
 
-func GetAccounts(b Bearer) AccountsList {
-	return *new(AccountsList)
+func GetAccounts(b Bearer) (AccountsList, error) {
+	list := AccountsList{}
+	res, err := newRequest(accountsBase, b)
+	if err != nil {
+		return list, err
+	}
+
+	jsonErr := json.Unmarshal(res, &list)
+
+	return list, jsonErr
 }
 
 func GetAccount(b Bearer, id string) AccountsList {
