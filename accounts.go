@@ -38,7 +38,7 @@ type AccountsList struct {
 
 	Links struct {
 		Prev string `json:"prev"`
-		Next string `json:"next`
+		Next string `json:"next"`
 	} `json:"links"`
 }
 
