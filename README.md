@@ -34,6 +34,10 @@ upgopher.GetAccounts(b)
 
 ### Milestone 3
 
+* Follow Links
+
+### Milestone 4
+
 * Error Handling
 
 ## Author
