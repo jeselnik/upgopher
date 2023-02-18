@@ -24,7 +24,7 @@ upgopher.GetAccounts(b)
   * Add to Transaction
   * Remove from Transaction
 * **Transactions**
-  * List
+  * ~~List~~
   * Retrieve Single
   * List by Account
 
