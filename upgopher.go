@@ -46,7 +46,7 @@ type PingRes struct {
 }
 
 type response interface {
-	PingRes | AccountsList | TransactionList
+	PingRes | AccountsList | Account | TransactionList
 }
 
 func get[T response](list *T, url string, b Bearer) error {

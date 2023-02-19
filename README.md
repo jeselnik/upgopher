@@ -15,7 +15,7 @@ upgopher.GetAccounts(b)
 * ~~**Ping**~~
 * **Accounts**
   * ~~List~~
-  * Retrieve Single
+  * ~~Retrieve Single~~
 * **Categories**
   * List
   * Retrieve Single
