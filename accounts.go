@@ -1,7 +1,5 @@
 package upgopher
 
-import "encoding/json"
-
 const accountsBase = baseURL + "/accounts"
 
 type AccountsList struct {
@@ -51,14 +49,9 @@ func GetAccounts(b Bearer) (AccountsList, error) {
 
 func (l AccountsList) FollowPrev(b Bearer) error {
 	temp := AccountsList{}
-	res, err := newRequest(l.Links.Prev, b)
+	err := get(&temp, l.Links.Prev, b)
 	if err != nil {
 		return err
-	}
-
-	jsonErr := json.Unmarshal(res, &temp)
-	if jsonErr != nil {
-		return jsonErr
 	}
 
 	listAddr := &l
@@ -69,14 +62,9 @@ func (l AccountsList) FollowPrev(b Bearer) error {
 
 func (l AccountsList) FollowNext(b Bearer) error {
 	temp := AccountsList{}
-	res, err := newRequest(l.Links.Next, b)
+	err := get(&temp, l.Links.Next, b)
 	if err != nil {
 		return err
-	}
-
-	jsonErr := json.Unmarshal(res, &temp)
-	if jsonErr != nil {
-		return jsonErr
 	}
 
 	listAddr := &l
