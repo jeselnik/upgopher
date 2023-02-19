@@ -4,11 +4,14 @@ import (
 	"encoding/json"
 	"io"
 	"net/http"
+	"time"
 )
 
-const baseURL = "https://api.up.com.au/api/v1"
-const headerKey = "Authorization"
-const pingURL = baseURL + "/util/ping"
+const (
+	baseURL   = "https://api.up.com.au/api/v1"
+	headerKey = "Authorization"
+	pingURL   = baseURL + "/util/ping"
+)
 
 type Bearer struct {
 	Val string
@@ -19,7 +22,7 @@ func Up(token string) Bearer {
 }
 
 func newRequest(url string, b Bearer) ([]byte, error) {
-	client := &http.Client{}
+	client := &http.Client{Timeout: 5 * time.Second}
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, err
