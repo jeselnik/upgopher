@@ -1,7 +1,5 @@
 package upgopher
 
-import "encoding/json"
-
 const transBase = baseURL + "/transactions"
 
 type TransactionList struct {
@@ -78,13 +76,7 @@ type TransactionList struct {
 
 func GetTransactions(b Bearer) (TransactionList, error) {
 	list := TransactionList{}
+	err := get(&list, transBase, b)
 
-	res, err := newRequest(transBase, b)
-	if err != nil {
-		return list, err
-	}
-
-	jsonErr := json.Unmarshal(res, &list)
-
-	return list, jsonErr
+	return list, err
 }

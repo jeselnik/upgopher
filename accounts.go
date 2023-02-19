@@ -44,14 +44,9 @@ type AccountsList struct {
 
 func GetAccounts(b Bearer) (AccountsList, error) {
 	list := AccountsList{}
-	res, err := newRequest(accountsBase, b)
-	if err != nil {
-		return list, err
-	}
+	err := get(&list, accountsBase, b)
 
-	jsonErr := json.Unmarshal(res, &list)
-
-	return list, jsonErr
+	return list, err
 }
 
 func (l AccountsList) FollowPrev(b Bearer) error {
