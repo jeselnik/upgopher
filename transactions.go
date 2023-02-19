@@ -1,5 +1,7 @@
 package upgopher
 
+import "fmt"
+
 const transBase = baseURL + "/transactions"
 
 type TransactionList struct {
@@ -78,6 +80,13 @@ func GetTransactions(b Bearer) (TransactionList, error) {
 	list := TransactionList{}
 	err := get(&list, transBase, b)
 
+	return list, err
+}
+
+func GetTransactionsByAccount(id string, b Bearer) (TransactionList, error) {
+	list := TransactionList{}
+	url := fmt.Sprintf("%s/%s/transactions", accountsBase, id)
+	err := get(&list, url, b)
 	return list, err
 }
 

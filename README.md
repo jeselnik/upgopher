@@ -13,7 +13,7 @@ upgopher.GetAccounts(b)
 ### Milestone 1
 
 * ~~**Ping**~~
-* **Accounts**
+* ~~**Accounts**~~
   * ~~List~~
   * ~~Retrieve Single~~
 * **Categories**
@@ -26,7 +26,7 @@ upgopher.GetAccounts(b)
 * **Transactions**
   * ~~List~~
   * Retrieve Single
-  * List by Account
+  * ~~List by Account~~
 
 ### Milestone 2
 
