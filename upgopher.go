@@ -45,14 +45,23 @@ type PingRes struct {
 	} `json:"meta"`
 }
 
-func Ping(b Bearer) (PingRes, error) {
-	ping := PingRes{}
-	res, err := newRequest(pingURL, b)
+type response interface {
+	PingRes
+}
+
+func get[T response](list *T, url string, b Bearer) error {
+	res, err := newRequest(url, b)
 	if err != nil {
-		return ping, err
+		return err
 	}
 
-	jsonErr := json.Unmarshal(res, &ping)
+	jsonErr := json.Unmarshal(res, list)
+	return jsonErr
+}
 
-	return ping, jsonErr
+func Ping(b Bearer) (PingRes, error) {
+	ping := PingRes{}
+	err := get(&ping, pingURL, b)
+
+	return ping, err
 }

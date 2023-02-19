@@ -66,7 +66,9 @@ func (l AccountsList) FollowPrev(b Bearer) error {
 		return jsonErr
 	}
 
-	l = temp
+	listAddr := &l
+	*listAddr = temp
+
 	return nil
 }
 
@@ -82,7 +84,9 @@ func (l AccountsList) FollowNext(b Bearer) error {
 		return jsonErr
 	}
 
-	l = temp
+	listAddr := &l
+	*listAddr = temp
+
 	return nil
 }
 
