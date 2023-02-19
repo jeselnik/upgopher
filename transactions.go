@@ -80,3 +80,27 @@ func GetTransactions(b Bearer) (TransactionList, error) {
 
 	return list, err
 }
+
+func (l TransactionList) FollowNext(b Bearer) error {
+	temp := TransactionList{}
+	err := get(&temp, l.Links.Next, b)
+	if err != nil {
+		return err
+	}
+
+	listAddr := &l
+	*listAddr = temp
+	return nil
+}
+
+func (l TransactionList) FollowPrev(b Bearer) error {
+	temp := TransactionList{}
+	err := get(&temp, l.Links.Prev, b)
+	if err != nil {
+		return err
+	}
+
+	listAddr := &l
+	*listAddr = temp
+	return nil
+}
