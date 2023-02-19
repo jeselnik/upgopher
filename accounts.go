@@ -54,6 +54,38 @@ func GetAccounts(b Bearer) (AccountsList, error) {
 	return list, jsonErr
 }
 
+func (l AccountsList) FollowPrev(b Bearer) error {
+	temp := AccountsList{}
+	res, err := newRequest(l.Links.Prev, b)
+	if err != nil {
+		return err
+	}
+
+	jsonErr := json.Unmarshal(res, &temp)
+	if jsonErr != nil {
+		return jsonErr
+	}
+
+	l = temp
+	return nil
+}
+
+func (l AccountsList) FollowNext(b Bearer) error {
+	temp := AccountsList{}
+	res, err := newRequest(l.Links.Next, b)
+	if err != nil {
+		return err
+	}
+
+	jsonErr := json.Unmarshal(res, &temp)
+	if jsonErr != nil {
+		return jsonErr
+	}
+
+	l = temp
+	return nil
+}
+
 func GetAccount(b Bearer, id string) AccountsList {
 	return *new(AccountsList)
 }
