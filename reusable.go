@@ -14,6 +14,11 @@ type MoneyObject struct {
 	ValueInBaseUnits int    `json:"valueInBaseUnits"`
 }
 
+type DataObject struct {
+	Type string `json:"type"`
+	ID   string `json:"id"`
+}
+
 /* Functions */
 func newRequest(url string, b Bearer) ([]byte, error) {
 	client := &http.Client{Timeout: 5 * time.Second}
