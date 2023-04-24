@@ -9,7 +9,6 @@ upgopher.GetAccounts(b)
 ```
 
 ## Progress
-(currently refactoring, not accurate anymore)
 
 ### Milestone 1
 
@@ -26,7 +25,7 @@ upgopher.GetAccounts(b)
   * Remove from Transaction
 * **Transactions**
   * ~~List~~
-  * Retrieve Single
+  * ~~Retrieve Single~~
   * ~~List by Account~~
 
 ### Milestone 2
