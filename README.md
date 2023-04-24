@@ -12,6 +12,8 @@ upgopher.GetAccounts(b)
 
 ### Milestone 1
 
+**TODO:** Ensure nesting of links in structs is correct
+
 * ~~**Ping**~~
 * ~~**Accounts**~~
   * ~~List~~
