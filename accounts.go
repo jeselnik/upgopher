@@ -5,7 +5,7 @@ import "fmt"
 const accountsBase = baseURL + "/accounts"
 
 type AccountsList struct {
-	Data []Account `json:"data"`
+	Account []Account `json:"data"`
 
 	Links struct {
 		Prev string `json:"prev"`
@@ -19,15 +19,11 @@ type Account struct {
 		ID   string `json:"id"`
 
 		Attributes struct {
-			DisplayName   string `json:"displayName"`
-			AccountType   string `json:"accountType"`
-			OwnershipType string `json:"ownershipType"`
-			Balance       struct {
-				CurrencyCode     string `json:"currencyCode"`
-				Value            string `json:"value"`
-				ValueInBaseUnits int    `json:"valueInBaseUnits"`
-			} `json:"balance"`
-			CreatedAt string
+			DisplayName   string      `json:"displayName"`
+			AccountType   string      `json:"accountType"`
+			OwnershipType string      `json:"ownershipType"`
+			Balance       MoneyObject `json:"balance"`
+			CreatedAt     string
 		} `json:"attributes"`
 
 		Relationships struct {
