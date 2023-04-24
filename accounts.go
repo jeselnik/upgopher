@@ -5,7 +5,7 @@ import "fmt"
 const accountsBase = baseURL + "/accounts"
 
 type AccountsList struct {
-	Account []Account `json:"data"`
+	Data []Account `json:"data"`
 
 	Links struct {
 		Prev string `json:"prev"`
@@ -13,31 +13,32 @@ type AccountsList struct {
 	} `json:"links"`
 }
 
-type Account struct {
-	Data struct {
-		Type string `json:"type"`
-		ID   string `json:"id"`
-
-		Attributes struct {
-			DisplayName   string      `json:"displayName"`
-			AccountType   string      `json:"accountType"`
-			OwnershipType string      `json:"ownershipType"`
-			Balance       MoneyObject `json:"balance"`
-			CreatedAt     string
-		} `json:"attributes"`
-
-		Relationships struct {
-			Transactions struct {
-				Links struct {
-					Related string `json:"related"`
-				} `json:"links"`
-			} `json:"transactions"`
-		} `json:"relationships"`
-	} `json:"data"`
-
+type AccountRes struct {
+	Data  Account `json:"data"`
 	Links struct {
 		Self string `json:"self"`
 	} `json:"links"`
+}
+
+type Account struct {
+	Type string `json:"type"`
+	ID   string `json:"id"`
+
+	Attributes struct {
+		DisplayName   string      `json:"displayName"`
+		AccountType   string      `json:"accountType"`
+		OwnershipType string      `json:"ownershipType"`
+		Balance       MoneyObject `json:"balance"`
+		CreatedAt     string
+	} `json:"attributes"`
+
+	Relationships struct {
+		Transactions struct {
+			Links struct {
+				Related string `json:"related"`
+			} `json:"links"`
+		} `json:"transactions"`
+	} `json:"relationships"`
 }
 
 func GetAccounts(b Bearer) (AccountsList, error) {
@@ -73,8 +74,8 @@ func (l AccountsList) FollowNext(b Bearer) error {
 	return nil
 }
 
-func GetAccount(id string, b Bearer) (Account, error) {
-	acc := Account{}
+func GetAccount(id string, b Bearer) (AccountRes, error) {
+	acc := AccountRes{}
 	accUrl := fmt.Sprintf("%s/%s", accountsBase, id)
 	err := get(&acc, accUrl, b)
 	return acc, err
