@@ -5,7 +5,16 @@ import "fmt"
 const transBase = baseURL + "/transactions"
 
 type TransactionList struct {
-	Data []struct {
+	Transaction []Transaction `json:"data"`
+
+	Links struct {
+		Prev string `json:"prev"`
+		Next string `json:"next"`
+	} `json:"links"`
+}
+
+type Transaction struct {
+	Data struct {
 		Type string `json:"type"`
 		ID   string `json:"id"`
 
@@ -15,65 +24,81 @@ type TransactionList struct {
 			Description     string `json:"description"`
 			Message         string `json:"message"`
 			IsCategorizable bool   `json:"isCategorizable"`
-			HoldInfo        string `json:"holdInfo"`
-			RoundUp         string `json:"roundUp"`
-			Cashback        string `json:"cashback"`
 
-			Amount struct {
-				CurrencyCode     string `json:"currencyCode"`
-				Value            string `json:"value"`
-				ValueInBaseUnits int    `json:"valueInBaseUnits"`
-			} `json:"amount"`
+			HoldInfo struct {
+				Amount        MoneyObject `json:"amount"`
+				ForeignAmount MoneyObject `json:"foreignAmount"`
+			} `json:"holdInfo"`
 
-			ForeignAmount      string `json:"foreignAmount"`
-			CardPurchaseMethod string `json:"cardPurchaseMethod"`
-			SettledAt          string `json:"settledAt"`
-			CreatedAt          string `json:"createdAt"`
+			RoundUp struct {
+				Amount       MoneyObject `json:"amount"`
+				BoostPortion MoneyObject `json:"boostPortion"`
+			} `json:"roundUp"`
+
+			CashBack struct {
+				Description string      `json:"description"`
+				Amount      MoneyObject `json:"amount"`
+			} `json:"cashback"`
+
+			Amount        MoneyObject `json:"amount"`
+			ForeignAmount MoneyObject `json:"foreignAmount"`
+
+			CardPurchaseMethod struct {
+				Method           string `json:"method"`
+				CardNumberSuffix string `json:"cardNumberSuffix"`
+			} `json:"cardPurchaseMethod"`
+
+			SettledAt string `json:"settledAt"`
+			CreatedAt string `json:"createdAt"`
 		} `json:"attributes"`
 
 		Relationships struct {
 			Account struct {
-				Data struct {
-					Type string
-					ID   string
-				} `json:"data"`
+				Data DataObject `json:"data"`
+
 				Links struct {
-					Related string
-				} `json:"links"`
-
-				Category struct {
-					Data  string `json:"data"`
-					Links struct {
-						Self string `json:"self"`
-					} `json:"links"`
-
-					ParentCategory struct {
-						Data string `json:"data"`
-					} `json:"parentCategory"`
-
-					Tags struct {
-						Data []struct {
-							Type string `json:"type"`
-							ID   string `json:"id"`
-						} `json:"data"`
-
-						Links struct {
-							Self string `json:"self"`
-						} `json:"links"`
-					} `json:"tags"`
-				} `json:"category"`
+					Related string `json:"related"`
+				}
 			} `json:"account"`
+
+			TransferAccount struct {
+				Data DataObject `json:"data"`
+
+				Links struct {
+					Related string `json:"related"`
+				}
+			} `json:"transferAccount"`
+
+			Category struct {
+				Data DataObject `json:"data"`
+
+				Links struct {
+					Self    string `json:"self"`
+					Related string `json:"related"`
+				} `json:"links"`
+			} `json:"category"`
+
+			ParentCategory struct {
+				Data DataObject `json:"data"`
+
+				Links struct {
+					Related string `json:"related"`
+				} `json:"links"`
+			} `json:"parentCategory"`
+
+			Tags struct {
+				Data []DataObject `json:"data"`
+
+				Links struct {
+					Self string `json:"self"`
+				} `json:"links"`
+			}
 		} `json:"relationships"`
 
 		Links struct {
 			Self string `json:"self"`
 		} `json:"links"`
 	} `json:"data"`
-
-	Links struct {
-		Prev string `json:"prev"`
-		Next string `json:"next"`
-	} `json:"links"`
 }
 
 func GetTransactions(b Bearer) (TransactionList, error) {
@@ -88,6 +113,14 @@ func GetTransactionsByAccount(id string, b Bearer) (TransactionList, error) {
 	url := fmt.Sprintf("%s/%s/transactions", accountsBase, id)
 	err := get(&list, url, b)
 	return list, err
+}
+
+/* Working */
+func GetTransactionById(id string, b Bearer) (Transaction, error) {
+	var transaction Transaction
+	url := fmt.Sprintf("%s/%s", transBase, id)
+	err := get(&transaction, url, b)
+	return transaction, err
 }
 
 func (l TransactionList) FollowNext(b Bearer) error {
