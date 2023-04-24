@@ -42,7 +42,7 @@ func newRequest(url string, b Bearer) ([]byte, error) {
 
 /* Generics */
 type response interface {
-	PingRes | AccountsList | Account | TransactionList | Transaction
+	PingRes | AccountsList | AccountRes | TransactionList | TransactionRes
 }
 
 func get[T response](list *T, url string, b Bearer) error {
