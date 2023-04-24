@@ -9,6 +9,7 @@ upgopher.GetAccounts(b)
 ```
 
 ## Progress
+(currently refactoring, not accurate anymore)
 
 ### Milestone 1
 
