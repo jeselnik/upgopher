@@ -13,92 +13,94 @@ type TransactionList struct {
 	} `json:"links"`
 }
 
+type TransactionRes struct {
+	Data Transaction `json:"data"`
+}
+
 type Transaction struct {
-	Data struct {
-		Type string `json:"type"`
-		ID   string `json:"id"`
+	Type string `json:"type"`
+	ID   string `json:"id"`
 
-		Attributes struct {
-			Status          string `json:"status"`
-			RawText         string `json:"rawText"`
-			Description     string `json:"description"`
-			Message         string `json:"message"`
-			IsCategorizable bool   `json:"isCategorizable"`
+	Attributes struct {
+		Status          string `json:"status"`
+		RawText         string `json:"rawText"`
+		Description     string `json:"description"`
+		Message         string `json:"message"`
+		IsCategorizable bool   `json:"isCategorizable"`
 
-			HoldInfo struct {
-				Amount        MoneyObject `json:"amount"`
-				ForeignAmount MoneyObject `json:"foreignAmount"`
-			} `json:"holdInfo"`
-
-			RoundUp struct {
-				Amount       MoneyObject `json:"amount"`
-				BoostPortion MoneyObject `json:"boostPortion"`
-			} `json:"roundUp"`
-
-			CashBack struct {
-				Description string      `json:"description"`
-				Amount      MoneyObject `json:"amount"`
-			} `json:"cashback"`
-
+		HoldInfo struct {
 			Amount        MoneyObject `json:"amount"`
 			ForeignAmount MoneyObject `json:"foreignAmount"`
+		} `json:"holdInfo"`
 
-			CardPurchaseMethod struct {
-				Method           string `json:"method"`
-				CardNumberSuffix string `json:"cardNumberSuffix"`
-			} `json:"cardPurchaseMethod"`
+		RoundUp struct {
+			Amount       MoneyObject `json:"amount"`
+			BoostPortion MoneyObject `json:"boostPortion"`
+		} `json:"roundUp"`
 
-			SettledAt string `json:"settledAt"`
-			CreatedAt string `json:"createdAt"`
-		} `json:"attributes"`
+		CashBack struct {
+			Description string      `json:"description"`
+			Amount      MoneyObject `json:"amount"`
+		} `json:"cashback"`
 
-		Relationships struct {
-			Account struct {
-				Data DataObject `json:"data"`
+		Amount        MoneyObject `json:"amount"`
+		ForeignAmount MoneyObject `json:"foreignAmount"`
 
-				Links struct {
-					Related string `json:"related"`
-				}
-			} `json:"account"`
+		CardPurchaseMethod struct {
+			Method           string `json:"method"`
+			CardNumberSuffix string `json:"cardNumberSuffix"`
+		} `json:"cardPurchaseMethod"`
 
-			TransferAccount struct {
-				Data DataObject `json:"data"`
+		SettledAt string `json:"settledAt"`
+		CreatedAt string `json:"createdAt"`
+	} `json:"attributes"`
 
-				Links struct {
-					Related string `json:"related"`
-				}
-			} `json:"transferAccount"`
+	Relationships struct {
+		Account struct {
+			Data DataObject `json:"data"`
 
-			Category struct {
-				Data DataObject `json:"data"`
-
-				Links struct {
-					Self    string `json:"self"`
-					Related string `json:"related"`
-				} `json:"links"`
-			} `json:"category"`
-
-			ParentCategory struct {
-				Data DataObject `json:"data"`
-
-				Links struct {
-					Related string `json:"related"`
-				} `json:"links"`
-			} `json:"parentCategory"`
-
-			Tags struct {
-				Data []DataObject `json:"data"`
-
-				Links struct {
-					Self string `json:"self"`
-				} `json:"links"`
+			Links struct {
+				Related string `json:"related"`
 			}
-		} `json:"relationships"`
+		} `json:"account"`
 
-		Links struct {
-			Self string `json:"self"`
-		} `json:"links"`
-	} `json:"data"`
+		TransferAccount struct {
+			Data DataObject `json:"data"`
+
+			Links struct {
+				Related string `json:"related"`
+			}
+		} `json:"transferAccount"`
+
+		Category struct {
+			Data DataObject `json:"data"`
+
+			Links struct {
+				Self    string `json:"self"`
+				Related string `json:"related"`
+			} `json:"links"`
+		} `json:"category"`
+
+		ParentCategory struct {
+			Data DataObject `json:"data"`
+
+			Links struct {
+				Related string `json:"related"`
+			} `json:"links"`
+		} `json:"parentCategory"`
+
+		Tags struct {
+			Data []DataObject `json:"data"`
+
+			Links struct {
+				Self string `json:"self"`
+			} `json:"links"`
+		}
+	} `json:"relationships"`
+
+	Links struct {
+		Self string `json:"self"`
+	} `json:"links"`
 }
 
 func GetTransactions(b Bearer) (TransactionList, error) {
@@ -116,8 +118,8 @@ func GetTransactionsByAccount(id string, b Bearer) (TransactionList, error) {
 }
 
 /* Working */
-func GetTransactionById(id string, b Bearer) (Transaction, error) {
-	var transaction Transaction
+func GetTransactionById(id string, b Bearer) (TransactionRes, error) {
+	var transaction TransactionRes
 	url := fmt.Sprintf("%s/%s", transBase, id)
 	err := get(&transaction, url, b)
 	return transaction, err
