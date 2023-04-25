@@ -55,7 +55,7 @@ func newRequest(url string, b Bearer) ([]byte, error) {
 
 /* Generics */
 type response interface {
-	PingRes | AccountsList | Account | TransactionList | TransactionRes |
+	PingRes | AccountsList | Account | TransactionList | Transaction |
 		CategoryList | Category | TagList
 }
 

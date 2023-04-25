@@ -5,15 +5,15 @@ import "fmt"
 const transBase = baseURL + "/transactions"
 
 type TransactionList struct {
-	Transaction []Transaction `json:"data"`
-	Links       NavLinks      `json:"links"`
-}
-
-type TransactionRes struct {
-	Data Transaction `json:"data"`
+	Transaction []TransactionResource `json:"data"`
+	Links       NavLinks              `json:"links"`
 }
 
 type Transaction struct {
+	Transaction TransactionResource `json:"data"`
+}
+
+type TransactionResource struct {
 	Type string `json:"type"`
 	ID   string `json:"id"`
 
@@ -100,11 +100,11 @@ func GetTransactionsByAccount(id string, b Bearer) (TransactionList, error) {
 }
 
 /* Working */
-func GetTransactionById(id string, b Bearer) (TransactionRes, error) {
-	var transaction TransactionRes
+func GetTransactionById(id string, b Bearer) (Transaction, error) {
+	trs := new(Transaction)
 	url := fmt.Sprintf("%s/%s", transBase, id)
-	err := get(&transaction, url, b)
-	return transaction, err
+	err := get(trs, url, b)
+	return *trs, err
 }
 
 func (l TransactionList) FollowNext(b Bearer) error {
