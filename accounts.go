@@ -5,15 +5,15 @@ import "fmt"
 const accountsBase = baseURL + "/accounts"
 
 type AccountsList struct {
-	Data  []Account `json:"data"`
-	Links NavLinks  `json:"links"`
-}
-
-type AccountRes struct {
-	Data Account `json:"data"`
+	Account []AccountResource `json:"data"`
+	Links   NavLinks          `json:"links"`
 }
 
 type Account struct {
+	Account AccountResource `json:"data"`
+}
+
+type AccountResource struct {
 	Type string `json:"type"`
 	ID   string `json:"id"`
 
@@ -67,9 +67,9 @@ func (l AccountsList) FollowNext(b Bearer) error {
 	return nil
 }
 
-func GetAccount(id string, b Bearer) (AccountRes, error) {
-	acc := AccountRes{}
+func GetAccount(id string, b Bearer) (Account, error) {
+	acc := new(Account)
 	accUrl := fmt.Sprintf("%s/%s", accountsBase, id)
-	err := get(&acc, accUrl, b)
-	return acc, err
+	err := get(acc, accUrl, b)
+	return *acc, err
 }
