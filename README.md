@@ -19,8 +19,8 @@ upgopher.GetAccounts(b)
   * ~~List~~
   * ~~Retrieve Single~~
 * **Categories**
-  * List
-  * Retrieve Single
+  * ~~List~~
+  * ~~Retrieve Single~~
 * **Tags**
   * List
   * Add to Transaction

@@ -1,5 +1,7 @@
 package upgopher
 
+import "fmt"
+
 const catBase = baseURL + "/categories"
 
 type CategoryResource struct {
@@ -36,4 +38,11 @@ func GetCategories(b Bearer) (CategoryList, error) {
 	list := new(CategoryList)
 	err := get(list, catBase, b)
 	return *list, err
+}
+
+func GetCategoryById(b Bearer, id string) (Category, error) {
+	category := new(Category)
+	url := fmt.Sprintf(catBase+"/s", id)
+	err := get(category, url, b)
+	return *category, err
 }
