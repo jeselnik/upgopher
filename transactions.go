@@ -90,17 +90,12 @@ type Transaction struct {
 		} `json:"parentCategory"`
 
 		Tags struct {
-			Data []DataObject `json:"data"`
-
-			Links struct {
-				Self string `json:"self"`
-			} `json:"links"`
-		}
+			Data  []DataObject `json:"data"`
+			Links LinkToSelf   `json:"links"`
+		} `json:"tags"`
 	} `json:"relationships"`
 
-	Links struct {
-		Self string `json:"self"`
-	} `json:"links"`
+	Links LinkToSelf `json:"links"`
 }
 
 func GetTransactions(b Bearer) (TransactionList, error) {
