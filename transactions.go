@@ -6,11 +6,7 @@ const transBase = baseURL + "/transactions"
 
 type TransactionList struct {
 	Transaction []Transaction `json:"data"`
-
-	Links struct {
-		Prev string `json:"prev"`
-		Next string `json:"next"`
-	} `json:"links"`
+	Links       NavLinks      `json:"links"`
 }
 
 type TransactionRes struct {

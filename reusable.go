@@ -27,6 +27,11 @@ type LinkToRelated struct {
 	Related string `json:"related"`
 }
 
+type NavLinks struct {
+	Prev string `json:"prev"`
+	Next string `json:"next"`
+}
+
 /* Functions */
 func newRequest(url string, b Bearer) ([]byte, error) {
 	client := &http.Client{Timeout: 5 * time.Second}

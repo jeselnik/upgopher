@@ -5,12 +5,8 @@ import "fmt"
 const accountsBase = baseURL + "/accounts"
 
 type AccountsList struct {
-	Data []Account `json:"data"`
-
-	Links struct {
-		Prev string `json:"prev"`
-		Next string `json:"next"`
-	} `json:"links"`
+	Data  []Account `json:"data"`
+	Links NavLinks  `json:"links"`
 }
 
 type AccountRes struct {
