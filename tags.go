@@ -14,6 +14,12 @@ type TagResource struct {
 }
 
 type TagList struct {
-	Tag   TagResource `json:"data"`
-	Links NavLinks    `json:"links"`
+	Tag   []TagResource `json:"data"`
+	Links NavLinks      `json:"links"`
+}
+
+func GetTags(b Bearer) (TagList, error) {
+	list := new(TagList)
+	err := get(list, tagBase, b)
+	return *list, err
 }
