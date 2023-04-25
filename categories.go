@@ -42,7 +42,7 @@ func GetCategories(b Bearer) (CategoryList, error) {
 
 func GetCategoryById(b Bearer, id string) (Category, error) {
 	category := new(Category)
-	url := fmt.Sprintf(catBase+"/s", id)
+	url := fmt.Sprintf(catBase+"/%s", id)
 	err := get(category, url, b)
 	return *category, err
 }
