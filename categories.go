@@ -25,9 +25,15 @@ type CategoryResource struct {
 }
 
 type Category struct {
-	Data CategoryResource `json:"data"`
+	Category CategoryResource `json:"data"`
 }
 
 type CategoryList struct {
-	Data []CategoryResource `json:"data"`
+	Category []CategoryResource `json:"data"`
+}
+
+func GetCategories(b Bearer) (CategoryList, error) {
+	list := new(CategoryList)
+	err := get(list, catBase, b)
+	return *list, err
 }
