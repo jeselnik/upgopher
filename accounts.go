@@ -31,9 +31,7 @@ type Account struct {
 
 	Relationships struct {
 		Transactions struct {
-			Links struct {
-				Related string `json:"related"`
-			} `json:"links"`
+			Links LinkToRelated `json:"related"`
 		} `json:"transactions"`
 	} `json:"relationships"`
 
