@@ -14,10 +14,7 @@ type AccountsList struct {
 }
 
 type AccountRes struct {
-	Data  Account `json:"data"`
-	Links struct {
-		Self string `json:"self"`
-	} `json:"links"`
+	Data Account `json:"data"`
 }
 
 type Account struct {
@@ -39,6 +36,8 @@ type Account struct {
 			} `json:"links"`
 		} `json:"transactions"`
 	} `json:"relationships"`
+
+	Links LinkToSelf `json:"links"`
 }
 
 func GetAccounts(b Bearer) (AccountsList, error) {

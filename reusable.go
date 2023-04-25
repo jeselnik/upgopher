@@ -19,6 +19,10 @@ type DataObject struct {
 	ID   string `json:"id"`
 }
 
+type LinkToSelf struct {
+	Self string `json:"self"`
+}
+
 /* Functions */
 func newRequest(url string, b Bearer) ([]byte, error) {
 	client := &http.Client{Timeout: 5 * time.Second}
