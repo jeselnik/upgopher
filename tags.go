@@ -18,8 +18,28 @@ type TagList struct {
 	Links NavLinks      `json:"links"`
 }
 
+type tagInputResource struct {
+	tag string `json:"type"`
+	id  string `json:"id"`
+}
+
+func newTagInputRes(id string) tagInputResource {
+	return tagInputResource{"tags", id}
+}
+
 func GetTags(b Bearer) (TagList, error) {
 	list := new(TagList)
 	err := get(list, tagBase, b)
 	return *list, err
+}
+
+func AddTagsToTransaction(transactionID string, tagID []string,
+	b Bearer) error {
+
+	tagInput := make([]tagInputResource, len(tagID))
+	for i, t := range tagID {
+		tagInput[i] = newTagInputRes(t)
+	}
+
+	return nil
 }
