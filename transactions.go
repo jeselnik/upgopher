@@ -57,19 +57,13 @@ type Transaction struct {
 
 	Relationships struct {
 		Account struct {
-			Data DataObject `json:"data"`
-
-			Links struct {
-				Related string `json:"related"`
-			}
+			Data  DataObject    `json:"data"`
+			Links LinkToRelated `json:"related"`
 		} `json:"account"`
 
 		TransferAccount struct {
-			Data DataObject `json:"data"`
-
-			Links struct {
-				Related string `json:"related"`
-			}
+			Data  DataObject    `json:"data"`
+			Links LinkToRelated `json:"related"`
 		} `json:"transferAccount"`
 
 		Category struct {
@@ -82,11 +76,8 @@ type Transaction struct {
 		} `json:"category"`
 
 		ParentCategory struct {
-			Data DataObject `json:"data"`
-
-			Links struct {
-				Related string `json:"related"`
-			} `json:"links"`
+			Data  DataObject    `json:"data"`
+			Links LinkToRelated `json:"links"`
 		} `json:"parentCategory"`
 
 		Tags struct {

@@ -23,6 +23,10 @@ type LinkToSelf struct {
 	Self string `json:"self"`
 }
 
+type LinkToRelated struct {
+	Related string `json:"related"`
+}
+
 /* Functions */
 func newRequest(url string, b Bearer) ([]byte, error) {
 	client := &http.Client{Timeout: 5 * time.Second}
